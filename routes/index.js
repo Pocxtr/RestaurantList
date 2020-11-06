@@ -1,8 +1,9 @@
 const express = require('express')
 const router = express.Router()
+const users = require('./modules/users')
+const home = require('./modules/home')
 
-router.get('/', (req, res) => {
-    res.render('index')
-})
+router.use('/users', users)
+router.use('/', home)
 
 module.exports = router
