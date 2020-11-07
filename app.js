@@ -2,6 +2,7 @@ const express = require('express')
 const exhbs = require('express-handlebars')
 const bodyParser = require('body-parser')
 const session = require('express-session')
+const usePassport = require('./config/passport')
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config()
@@ -26,6 +27,7 @@ app.use(session({
 // setting middleware
 app.use(express.static('public'))
 app.use(bodyParser.urlencoded({ extended: true }))
+usePassport(app)
 
 app.use(routes)
 
