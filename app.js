@@ -1,6 +1,7 @@
 const express = require('express')
 const exhbs = require('express-handlebars')
 const bodyParser = require('body-parser')
+const methodOverride = require('method-override')
 const session = require('express-session')
 const usePassport = require('./config/passport')
 const flash = require('connect-flash')
@@ -18,16 +19,17 @@ const app = express()
 app.engine('hbs', exhbs({ defaultLayout: 'main', extname: 'hbs' }))
 app.set('view engine', 'hbs')
 
-// setting session
-app.use(session({
-    secret: process.env.SESSION_SECRET,
-    resave: false,
-    saveUninitialized: true
-  }))
-
 // setting middleware
 app.use(express.static('public'))
+app.use(methodOverride('_method'))
 app.use(bodyParser.urlencoded({ extended: true }))
+
+// setting session
+app.use(session({
+  secret: process.env.SESSION_SECRET,
+  resave: false,
+  saveUninitialized: true
+}))
 
 usePassport(app)
 app.use(flash())
