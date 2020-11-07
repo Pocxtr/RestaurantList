@@ -3,6 +3,17 @@ const router = express.Router()
 
 const Restaurant = require('../../models/restaurant')
 
+//Route to create restaurant
+router.get('/new', (req, res) => {
+    res.render('new')
+})
+router.post('/new', (req, res) => {
+    const restaurant = req.body
+    restaurant.userId = req.user._id
+    Restaurant.create(restaurant)
+    .then(() => res.redirect('/'))
+    .catch(err => console.log(err))
+})
 //Route to read detail
 router.get('/:id', (req, res) => {
     const userId = req.user._id
@@ -28,17 +39,6 @@ router.put('/:id', (req, res) => {
     update.userId = req.user._id
     Restaurant.findByIdAndUpdate(_id, update, { new:true })
     .then(() => res.redirect(`/restaurants/${_id}`))
-    .catch(err => console.log(err))
-})
-//Route to create restaurant
-router.get('/new', (req, res) => {
-    res.render('new')
-})
-router.post('/new', (req, res) => {
-    const restaurant = req.body
-    restaurant.userId = req.user._id
-    Restaurant.create(restaurant)
-    .then(() => res.redirect('/'))
     .catch(err => console.log(err))
 })
 //Route to delete restaurant
