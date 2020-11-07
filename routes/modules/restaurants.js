@@ -41,5 +41,15 @@ router.post('/new', (req, res) => {
     .then(() => res.redirect('/'))
     .catch(err => console.log(err))
 })
+//Route to delete restaurant
+router.delete('/:id', (req, res) => {
+    const userId = req.user._id
+    const _id = req.params.id
+    Restaurant.findOne({ _id, userId })
+    .then(restaurant => restaurant.remove())
+    .then(() => res.redirect('/'))
+    .catch(err => console.log(err))
+
+})
 
 module.exports = router
