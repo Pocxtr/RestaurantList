@@ -18,11 +18,11 @@
     </div>
   </div>
 
-  <form action="/sort" style="display: inline;">
-    <select class="form-control" name='sortMethod' onchange='this.form.submit()'>
-      <option value="default" selected>Sort</option>
-      <option value="nameAsc">A->Z</option>
-      <option value="nameDesc">Z->A</option>
+  <form action="/sort" method="GET" style="display: inline;">
+    <select class="form-control" name='by' onchange='this.form.submit()'>
+      <option value="">Sort</option>
+      <option value="name-asc">A->Z</option>
+      <option value="name-desc">Z->A</option>
       <option value="category">類別</option>
       <option value="location">地區</option>
     </select>
